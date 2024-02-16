@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Guitar Inventory Mangement</title>
+    </head>
+
+    <body style="background-color: #f8eaca;">
+        <p style="text-align: left;">
+            <a style="margin-left: 20px; font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 36px; text-decoration: none; color: #ce6d46; text-align: left;" href="index.html">Guitar Inventory Management</a>
+            <span style="float: right; margin-right: 3cm;">
+                <a style="margin-right: 20px; font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 36px; text-decoration: none; color: #000000;" href="about.html">About</a>
+                <a style="margin-right: 20px; font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 36px; text-decoration: none; color: #000000;" href="add.html">Add</a>
+                <a style="margin-right: 20px; font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 36px; text-decoration: none; color: #000000;" href="search.html">Search</a>
+            </span>
+        </p>
+
+        <div style="margin-left: 3cm; margin-top: 2cm; font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 36px; text-decoration: none; color: #000000;">
+            <label>Builder:</label>
+            <input id="builder"/>
+            <br>
+            <label>Model:</label>
+            <input id="model"/>
+            <br>
+            <label>Type:</label>
+            <input id="type"/>
+            <br>
+            <label>Back wood:</label>
+            <input id="backWood"/>
+            <br>
+            <label>Top wood:</label>
+            <input id="topWood"/>
+            <br>
+            <button onclick="search()" font-size="40px">Search</button>
+        </div>
+
+        <table style="margin-top: 40px; margin-left: 3cm; background-color: white;">
+            <tr style="background-color: #f0f0f0;">
+                <th>Serial Number</th>
+                <th>Builder</th>
+                <th>Model</th>
+                <th>Type</th>
+                <th>Back Wood</th>
+                <th>Top Wood</th>
+            </tr>
+            <tbody id="searchResult">  
+            </tbody>
+        </table>
+
+        <script>
+            let guitars = [
+                {
+                    serialNumber: 1,
+                    price: "$123",
+                    builder: "builder1",
+                    model: "model1",
+                    type: "type1",
+                    backWood: "backwood1",
+                    topWood: "topwood1",
+                },
+                {
+                    serialNumber: 2,
+                    price: "$456",
+                    builder: "builder2",
+                    model: "model2",
+                    type: "type2",
+                    backWood: "backwood2",
+                    topWood: "topwood2",
+                },
+                {
+                    serialNumber: 3,
+                    price: "$789",
+                    builder: "builder3",
+                    model: "model3",
+                    type: "type3",
+                    backWood: "backwood3",
+                    topWood: "topwood3",
+                },
+                {
+                    serialNumber: 4,
+                    price: "$1011",
+                    builder: "builder4",
+                    model: "model4",
+                    type: "type4",
+                    backWood: "backwood4",
+                    topWood: "topwood4",
+                },
+                {
+                    serialNumber: 5,
+                    price: "$1213",
+                    builder: "builder4",
+                    model: "model4",
+                    type: "type4",
+                    backWood: "backwood4",
+                    topWood: "topwood4",
+                },
+            ];
+            async function search(){
+                let gBuilder = document.getElementById("builder").value;
+                let gModel = document.getElementById("model").value;
+                let gType = document.getElementById("type").value;
+                let gBackWood = document.getElementById("backWood").value;
+                let gTopWood = document.getElementById("topWood").value;
+                let table = document.getElementById("searchResult");
+                table.innerHTML = "";
+                for(let guitar of guitars){
+                    if(
+                        (!gBuilder || guitar.builder.toLowerCase() == gBuilder) && 
+                        (!gModel || guitar.model.toLowerCase() == gModel) && 
+                        (!gType || guitar.type.toLowerCase() == gType) && 
+                        (!gBackWood || guitar.backWood.toLowerCase() == gBackWood) && 
+                        (!gTopWood || guitar.topWood.toLowerCase() == gTopWood)){
+
+                        let row = document.createElement("tr");
+                        let cell1 = document.createElement("td");
+                        let cell2 = document.createElement("td");
+                        let cell3 = document.createElement("td");
+                        let cell4 = document.createElement("td");
+                        let cell5 = document.createElement("td");
+                        let cell6 = document.createElement("td");
+                        cell1.appendChild(document.createTextNode(guitar.serialNumber));
+                        cell2.appendChild(document.createTextNode(guitar.builder));
+                        cell3.appendChild(document.createTextNode(guitar.model));
+                        cell4.appendChild(document.createTextNode(guitar.type));
+                        cell5.appendChild(document.createTextNode(guitar.backWood));
+                        cell6.appendChild(document.createTextNode(guitar.topWood));
+    
+                        row.appendChild(cell1);
+                        row.appendChild(cell2);
+                        row.appendChild(cell3);
+                        row.appendChild(cell4);
+                        row.appendChild(cell5);
+                        row.appendChild(cell6);
+    
+                        table.appendChild(row);
+                    }
+                }
+            }
+        </script>
+    </body>
+</html>
