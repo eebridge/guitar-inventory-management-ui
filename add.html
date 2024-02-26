@@ -55,30 +55,54 @@
               let guitar = { serialnumber: gSerial, price: gPrice, builder: gBuilder, model: gModel, type: gType, backWood: gBackWood, topWood: gTopWood };
               console.log("You entered:" + JSON.stringify(guitar));
 
-              alert("Guitar added:\n\n" + 
-              "Serial number: " + gSerial + "\n" + 
-              "Price: " + gPrice + "\n" + 
-              "Builder: " + gBuilder + "\n" +
-              "Model: " + gModel + "\n" +
-              "Type: " + gType + "\n" +
-              "Back wood: " + gBackWood + "\n" +
-              "Top wood: " + gTopWood);
+              let add = true;
 
-              let request = {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json"
-                },
-                body: JSON.stringify(guitar)
-              };
-              let response = await fetch(host + "/guitars", request);
-              if (response.status == 200) {
-                message = "The guitar was added successfully!";
-              } else {
-                console.log(response);
-                message = "Something went wrong! Guitar data could not be saved.";
+              if (gSerial == "" || gSerial == null) {
+                alert("The SERIAL NUMBER field is empty please enter a value!");
+                add = false;
               }
-              alert(message);
+              if (gPrice == "" || gPrice == null) {
+                alert("The PRICE field is empty please enter a value!");
+                add = false;
+              }
+              if (gBuilder == "" || gBuilder == null) {
+                alert("The BUILDER field is empty please enter a value!");
+                add = false;
+              }
+              if (gModel == "" || gModel == null) {
+                alert("The MODEL field is empty please enter a value!");
+                add = false;
+              }
+              if (gType == "" || gType == null) {
+                alert("The TYPE field is empty please enter a value!");
+                add = false;
+              }
+              if (gBackWood == "" || gBackWood == null) {
+                alert("The BACK WOOD field is empty please enter a value!");
+                add = false;
+              }
+              if (gTopWood == "" || gTopWood == null) {
+                alert("The TOP WOOD field is empty please enter a value!");
+                add = false;
+              }
+
+              if (add == true) {
+                let request = {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json"
+                  },
+                  body: JSON.stringify(guitar)
+                };
+                let response = await fetch(host + "/guitars", request);
+                if (response.status == 200) {
+                  message = "The guitar was added to the system";
+                } else {
+                  console.log(response);
+                  message = "Something went wrong. Please try again or contact the customer support team.";
+                }
+                alert(message);
+              }
             }
           </script>
 

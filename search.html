@@ -96,6 +96,9 @@
                     topWood: "topwood4",
                 },
             ];
+
+            let host = "http://localhost:8080";
+
             async function search(){
                 let gBuilder = document.getElementById("builder").value;
                 let gModel = document.getElementById("model").value;
@@ -104,37 +107,60 @@
                 let gTopWood = document.getElementById("topWood").value;
                 let table = document.getElementById("searchResult");
                 table.innerHTML = "";
-                for(let guitar of guitars){
-                    if(
-                        (!gBuilder || guitar.builder.toLowerCase() == gBuilder) && 
-                        (!gModel || guitar.model.toLowerCase() == gModel) && 
-                        (!gType || guitar.type.toLowerCase() == gType) && 
-                        (!gBackWood || guitar.backWood.toLowerCase() == gBackWood) && 
-                        (!gTopWood || guitar.topWood.toLowerCase() == gTopWood)){
 
-                        let row = document.createElement("tr");
-                        let cell1 = document.createElement("td");
-                        let cell2 = document.createElement("td");
-                        let cell3 = document.createElement("td");
-                        let cell4 = document.createElement("td");
-                        let cell5 = document.createElement("td");
-                        let cell6 = document.createElement("td");
-                        cell1.appendChild(document.createTextNode(guitar.serialNumber));
-                        cell2.appendChild(document.createTextNode(guitar.builder));
-                        cell3.appendChild(document.createTextNode(guitar.model));
-                        cell4.appendChild(document.createTextNode(guitar.type));
-                        cell5.appendChild(document.createTextNode(guitar.backWood));
-                        cell6.appendChild(document.createTextNode(guitar.topWood));
-    
-                        row.appendChild(cell1);
-                        row.appendChild(cell2);
-                        row.appendChild(cell3);
-                        row.appendChild(cell4);
-                        row.appendChild(cell5);
-                        row.appendChild(cell6);
-    
-                        table.appendChild(row);
+                let request = {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json"
                     }
+                };
+                let url = host + "/search?";
+                if (gBuilder) url = url + "&builder=" + gBuilder;
+                if (gModel) url = url + "&model=" + gModel;
+                if (gType) url = url + "&type=" + gType;
+                if (gBackWood) url = url + "&backWood=" + gBackWood;
+                if (gTopWood) url = url + "&topWood=" + gTopWood;
+                url = url.split("?&").join("?");
+
+                try {
+                    let response = await fetch(url, request);
+                    let guitars1 = await response.json();
+
+                    for (let guitar of guitars1) {
+                        if(
+                            (!gBuilder || guitar.builder.toLowerCase() == gBuilder) && 
+                            (!gModel || guitar.model.toLowerCase() == gModel) && 
+                            (!gType || guitar.type.toLowerCase() == gType) && 
+                            (!gBackWood || guitar.backWood.toLowerCase() == gBackWood) && 
+                            (!gTopWood || guitar.topWood.toLowerCase() == gTopWood)){
+
+                            let row = document.createElement("tr");
+                            let cell1 = document.createElement("td");
+                            let cell2 = document.createElement("td");
+                            let cell3 = document.createElement("td");
+                            let cell4 = document.createElement("td");
+                            let cell5 = document.createElement("td");
+                            let cell6 = document.createElement("td");
+                            cell1.appendChild(document.createTextNode(guitar.serialNumber));
+                            cell2.appendChild(document.createTextNode(guitar.builder));
+                            cell3.appendChild(document.createTextNode(guitar.model));
+                            cell4.appendChild(document.createTextNode(guitar.type));
+                            cell5.appendChild(document.createTextNode(guitar.backWood));
+                            cell6.appendChild(document.createTextNode(guitar.topWood));
+        
+                            row.appendChild(cell1);
+                            row.appendChild(cell2);
+                            row.appendChild(cell3);
+                            row.appendChild(cell4);
+                            row.appendChild(cell5);
+                            row.appendChild(cell6);
+        
+                            table.appendChild(row);
+                        }
+                    }
+                } catch (error) {
+                    let message = "Error:\n" + error;
+                    alert(message);
                 }
             }
         </script>
