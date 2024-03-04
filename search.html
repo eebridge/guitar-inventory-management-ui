@@ -50,53 +50,66 @@
 
         <script>
             let guitars = [
-                {
-                    serialNumber: 1,
-                    price: "$123",
-                    builder: "builder1",
-                    model: "model1",
-                    type: "type1",
-                    backWood: "backwood1",
-                    topWood: "topwood1",
-                },
-                {
-                    serialNumber: 2,
-                    price: "$456",
-                    builder: "builder2",
-                    model: "model2",
-                    type: "type2",
-                    backWood: "backwood2",
-                    topWood: "topwood2",
-                },
-                {
-                    serialNumber: 3,
-                    price: "$789",
-                    builder: "builder3",
-                    model: "model3",
-                    type: "type3",
-                    backWood: "backwood3",
-                    topWood: "topwood3",
-                },
-                {
-                    serialNumber: 4,
-                    price: "$1011",
-                    builder: "builder4",
-                    model: "model4",
-                    type: "type4",
-                    backWood: "backwood4",
-                    topWood: "topwood4",
-                },
-                {
-                    serialNumber: 5,
-                    price: "$1213",
-                    builder: "builder4",
-                    model: "model4",
-                    type: "type4",
-                    backWood: "backwood4",
-                    topWood: "topwood4",
-                },
+                // {
+                //     serialNumber: 1,
+                //     price: "$123",
+                //     builder: "builder1",
+                //     model: "model1",
+                //     type: "type1",
+                //     backWood: "backwood1",
+                //     topWood: "topwood1",
+                // },
+                // {
+                //     serialNumber: 2,
+                //     price: "$456",
+                //     builder: "builder2",
+                //     model: "model2",
+                //     type: "type2",
+                //     backWood: "backwood2",
+                //     topWood: "topwood2",
+                // },
+                // {
+                //     serialNumber: 3,
+                //     price: "$789",
+                //     builder: "builder3",
+                //     model: "model3",
+                //     type: "type3",
+                //     backWood: "backwood3",
+                //     topWood: "topwood3",
+                // },
+                // {
+                //     serialNumber: 4,
+                //     price: "$1011",
+                //     builder: "builder4",
+                //     model: "model4",
+                //     type: "type4",
+                //     backWood: "backwood4",
+                //     topWood: "topwood4",
+                // },
+                // {
+                //     serialNumber: 5,
+                //     price: "$1213",
+                //     builder: "builder4",
+                //     model: "model4",
+                //     type: "type4",
+                //     backWood: "backwood4",
+                //     topWood: "topwood4",
+                // },
             ];
+
+            let host = "https://hw6-latest-1.onrender.com"
+
+            async function getAll() {
+                return fetch(host + "/inventory/findAll")
+                    .then(response => response.json())
+                    .catch(error => {
+                    console.log(error);
+                    alert("Something went wrong!");
+                    return []; });
+            }
+
             async function search(){
+                guitars = await getAll();
                 let gBuilder = document.getElementById("builder").value;
                 let gModel = document.getElementById("model").value;
                 let gType = document.getElementById("type").value;
