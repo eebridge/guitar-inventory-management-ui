@@ -99,17 +99,22 @@
 
             let host = "https://hw6-latest-1.onrender.com"
 
-            async function getAll() {
-                return fetch(host + "/inventory/findAll")
-                    .then(response => response.json())
-                    .catch(error => {
-                    console.log(error);
-                    alert("Something went wrong!");
-                    return []; });
+            async function getAll(g) {
+                let request = {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json"
+                    }   
+                }
+                let response = await fetch(g, request); 
+                if (!response.ok) {
+                    alert ("Something went wrong!");
+                    return null;
+                }
+                return response.json();
             }
 
             async function search(){
-                guitars = await getAll();
                 let gBuilder = document.getElementById("builder").value;
                 let gModel = document.getElementById("model").value;
                 let gType = document.getElementById("type").value;
@@ -117,6 +122,18 @@
                 let gTopWood = document.getElementById("topWood").value;
                 let table = document.getElementById("searchResult");
                 table.innerHTML = "";
+
+                let g = host + "/search?";
+                if (builder_temp != "") g += "builder=" + builder_temp + "&";
+                if (model_temp != "") g += "model=" + model_temp + "&";
+                if (type_temp != "") g += "type=" + type_temp + "&";
+                if (topwood_temp != "") g += "topWood=" + topwood_temp + "&";
+                if (backwood_temp != "") g += "backWood=" + backwood_temp + "&";
+                
+                guitars = await getAll(g.substring(0, g.length - 1));
+                console.log(guitars);
+                if (guitars == null) return;
+
                 for(let guitar of guitars){
                     if(
                         (!gBuilder || guitar.builder.toLowerCase() == gBuilder) && 
