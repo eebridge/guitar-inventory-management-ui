@@ -99,8 +99,8 @@
 
             let host = "https://hw6-latest-1.onrender.com"
 
-            async function getAll() {
-                return fetch(host)
+            async function getAll(g) {
+                return fetch(g)
                     .then(response => response.json())
                     .catch(error => {
                     console.log(error);
