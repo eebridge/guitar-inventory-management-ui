@@ -99,19 +99,13 @@
 
             let host = "https://hw6-latest-1.onrender.com"
 
-            async function getAll(g) {
-                let request = {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json"
-                    }   
-                }
-                let response = await fetch(g, request); 
-                if (!response.ok) {
-                    alert ("Something went wrong!");
-                    return null;
-                }
-                return response.json();
+            async function getAll() {
+                return fetch(host)
+                    .then(response => response.json())
+                    .catch(error => {
+                    console.log(error);
+                    alert("Something went wrong!");
+                    return []; });
             }
 
             async function search(){
