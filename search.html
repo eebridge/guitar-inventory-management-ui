@@ -124,11 +124,11 @@
                 table.innerHTML = "";
 
                 let g = host + "/search?";
-                if (builder_temp != "") g += "builder=" + builder_temp + "&";
-                if (model_temp != "") g += "model=" + model_temp + "&";
-                if (type_temp != "") g += "type=" + type_temp + "&";
-                if (topwood_temp != "") g += "topWood=" + topwood_temp + "&";
-                if (backwood_temp != "") g += "backWood=" + backwood_temp + "&";
+                if (gBuilder != "") g += "builder=" + gBuilder + "&";
+                if (gModel != "") g += "model=" + gModel + "&";
+                if (gType != "") g += "type=" + gType + "&";
+                if (gTopWood != "") g += "topWood=" + gTopWood + "&";
+                if (gBackWood != "") g += "backWood=" + gBackWood + "&";
                 
                 guitars = await getAll(g.substring(0, g.length - 1));
                 console.log(guitars);
