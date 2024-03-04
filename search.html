@@ -99,8 +99,8 @@
 
             let host = "https://hw6-latest-1.onrender.com"
 
-            async function getAll(g) {
-                return fetch(g)
+            async function getAll() {
+                return fetch(host + "/findAll")
                     .then(response => response.json())
                     .catch(error => {
                     console.log(error);
@@ -117,16 +117,7 @@
                 let table = document.getElementById("searchResult");
                 table.innerHTML = "";
 
-                let g = host + "/search?";
-                if (gBuilder != "") g += "builder=" + gBuilder + "&";
-                if (gModel != "") g += "model=" + gModel + "&";
-                if (gType != "") g += "type=" + gType + "&";
-                if (gTopWood != "") g += "topWood=" + gTopWood + "&";
-                if (gBackWood != "") g += "backWood=" + gBackWood + "&";
-                
-                guitars = await getAll(g.substring(0, g.length - 1));
-                console.log(guitars);
-                if (guitars == null) return;
+                guitars = await getAll();
 
                 for(let guitar of guitars){
                     if(
